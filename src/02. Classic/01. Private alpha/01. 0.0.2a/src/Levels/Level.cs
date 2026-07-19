@@ -1,10 +1,10 @@
 using System.Drawing;
 using System.IO.Compression;
-using RubyDung.Levels.Blocks;
-using RubyDung.Mathematics;
-using RubyDung.Utilities;
+using Minecraft.Levels.Blocks;
+using Minecraft.Mathematics;
+using Minecraft.Utilities;
 
-namespace RubyDung.Levels;
+namespace Minecraft.Levels;
 
 public class Level
 {

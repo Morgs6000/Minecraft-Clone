@@ -1,4 +1,4 @@
-namespace RubyDung.Levels;
+namespace Minecraft.Levels;
 
 public class PerlinNoiseFilter
 {

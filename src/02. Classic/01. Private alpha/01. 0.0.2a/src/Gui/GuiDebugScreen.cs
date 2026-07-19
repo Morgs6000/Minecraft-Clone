@@ -1,10 +1,10 @@
-using RubyDung.Levels;
-using RubyDung.Mathematics;
-using RubyDung.Meshing;
-using RubyDung.Rendering;
-using RubyDung.Utilities;
+using Minecraft.Levels;
+using Minecraft.Mathematics;
+using Minecraft.Meshing;
+using Minecraft.Rendering;
+using Minecraft.Utilities;
 
-namespace RubyDung.Gui;
+namespace Minecraft.Gui;
 
 public class GuiDebugScreen
 {
