@@ -1,0 +1,71 @@
+using RubyDung.Core;
+using RubyDung.Levels;
+using RubyDung.Mathematics;
+using RubyDung.Rendering;
+using RubyDung.Utilities;
+using Silk.NET.OpenGL;
+using Shader = RubyDung.Rendering.Shader;
+
+namespace RubyDung.Gui;
+
+public class GuiManager
+{
+    private GL _gl = Game.GL;
+
+    private Level _level = null!;
+
+    public static float ScaleFactor = 2.0f;
+
+    private Shader _shader = null!;
+
+    private GuiCrosshair _guiCrosshair = null!;
+    private GuiSelectedBlock _guiSelectedBlock = null!;
+
+    public void Init(Level level)
+    {
+        _level = level;
+
+        _shader = new Shader("gui");
+
+        _guiCrosshair = new GuiCrosshair();
+        _guiCrosshair.Init();
+
+        _guiSelectedBlock = new GuiSelectedBlock();
+        _guiSelectedBlock.Init(level);
+    }
+
+    public void Update()
+    {
+        _guiSelectedBlock.Update();
+    }
+
+    public void Render()
+    {
+        _shader.Use();
+
+        Matrix4 model = Matrix4.Identity;
+        _shader.SetUniform("uModel", model);
+
+        Matrix4 projection = GetProjectionMatrix();
+        _shader.SetUniform("uProjection", projection);        
+
+        _gl.Disable(EnableCap.DepthTest);
+
+        _guiCrosshair.Render(_shader);
+        _guiSelectedBlock.Render(_shader);
+
+        _gl.Enable(EnableCap.DepthTest);
+    }
+
+    private Matrix4 GetProjectionMatrix()
+    {
+        return Matrix4.Orthographic(
+            left:   0.0f, 
+            right:  (float)Screen.Width / ScaleFactor, 
+            bottom: 0.0f, 
+            top:    (float)Screen.Height / ScaleFactor, 
+            zNear:  0.3f, 
+            zFar:   1000.0f
+        );
+    }
+}
